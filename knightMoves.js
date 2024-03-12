@@ -40,6 +40,30 @@ class Graph {
             }
         }
     }
+
+    knightMoves(start, end) {
+        let queue = [[start]];
+        let visited = new Set();
+
+        while (queue.length > 0) {
+            let path = queue.shift();
+            let vertex = path[path.length - 1];
+
+            if (vertex === end) {
+                return path;
+            }
+
+            if (!visited.has(vertex)) {
+                visited.add(vertex);
+                let neighbors = this.chessboard.get(vertex) || [];
+                for (let neighbor of neighbors) {
+                    let newPath = path.slice(); 
+                    newPath.push(neighbor); 
+                    queue.push(newPath); 
+                }
+            }
+        }
+    }
 }
 
 let chessBoard = new Graph()
